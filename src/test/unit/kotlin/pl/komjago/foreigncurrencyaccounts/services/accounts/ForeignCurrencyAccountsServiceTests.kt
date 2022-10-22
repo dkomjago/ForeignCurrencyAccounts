@@ -10,12 +10,7 @@ class ForeignCurrencyAccountsServiceTests {
     @Nested
     inner class Register{
         @Test
-        fun runs() {
-            serviceUnderTest.register()
-        }
-
-        @Test
-        fun `can register`() {
+        fun `duplicate account throws`() {
             serviceUnderTest.register()
         }
     }
@@ -23,7 +18,12 @@ class ForeignCurrencyAccountsServiceTests {
     @Nested
     inner class Get{
         @Test
-        fun `can get`() {
+        fun `gets from repo`() {
+            serviceUnderTest.register()
+        }
+
+        @Test
+        fun `non-persisted pesel throws`() {
             serviceUnderTest.register()
         }
     }

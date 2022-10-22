@@ -2,6 +2,7 @@ package pl.komjago.foreigncurrencyaccounts.controllers.v1
 
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 
 class ForeignCurrencyAccountsControllerTests {
@@ -32,15 +33,15 @@ class ForeignCurrencyAccountsControllerTests {
         }
 
         @Test
-        fun `duplicate account throws`() {
+        fun `underage customer throws`() {
             assertThrows<Exception> {
                 serviceUnderTest.register()
             }
         }
 
         @Test
-        fun `underage customer throws`() {
-            assertThrows<Exception> {
+        fun `correct input doesn't throw`() {
+            assertDoesNotThrow<Exception> {
                 serviceUnderTest.register()
             }
         }
@@ -49,8 +50,15 @@ class ForeignCurrencyAccountsControllerTests {
     @Nested
     inner class Get{
         @Test
-        fun `returns multiple accounts`() {
-            serviceUnderTest.register()
+        fun `malformed PESEL throws`() {
+            assertThrows<Exception> {
+                serviceUnderTest.get()
+            }
+        }
+
+        @Test
+        fun `correct PESEL returns account info`() {
+            serviceUnderTest.get()
         }
     }
 }
