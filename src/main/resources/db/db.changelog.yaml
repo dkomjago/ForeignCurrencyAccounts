@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dkomjago
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: pesel
+                  type: char(11)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(101)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthdate
+                  type: date
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account__customer
+                    references: customer(id)
+        - createTable:
+            tableName: sub_account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: currency
+                  type: char(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: funds
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: varchar(24)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_sub_account__account
+                    references: account(id)
+  - changeSet:
+      id: 2
+      author: dkomjago
+      changes:
+        - sqlFile:
+            dbms: 'h2'
+            endDelimiter: \nGO
+            splitStatements: true
+            path: db/populate.sql
+            stripComments: true

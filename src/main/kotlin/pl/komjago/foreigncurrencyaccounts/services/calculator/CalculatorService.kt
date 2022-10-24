@@ -1,7 +1,9 @@
 package pl.komjago.foreigncurrencyaccounts.services.calculator
 
-interface CalculatorService {
+import pl.komjago.foreigncurrencyaccounts.domain.enums.Currency
+import java.math.BigDecimal
 
-    fun exchange()
+interface CalculatorService {
+    fun exchange(currency: Currency, amount: BigDecimal, target: Currency): BigDecimal
 
 }

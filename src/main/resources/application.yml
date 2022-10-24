@@ -1,0 +1,16 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog.yaml
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+remote:
+  nbp:
+    base-url: http://api.nbp.pl/api/
+    timeout: 15s
