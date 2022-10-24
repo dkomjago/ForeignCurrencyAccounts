@@ -1,0 +1,4 @@
+remote:
+  nbp:
+    base-url: http://api.nbp.pl/api/
+    timeout: 15s
